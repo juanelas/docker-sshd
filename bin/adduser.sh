@@ -7,5 +7,8 @@ if [ $? -eq 0 ]; then
     echo "${user}:${passwd}" | chpasswd
     if [ $? -eq 0 ]; then
         echo "${user}:$(cryptpw ${passwd})" >> /home/.users
+    else
+        deluser $user
+        exit 1
     fi
 fi
