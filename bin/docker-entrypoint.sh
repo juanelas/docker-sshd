@@ -3,13 +3,15 @@
 if [ ! -f /home/.users ]; then
     echo "Initializing empty users' volume"
     touch /home/.users
+    chmod 600 /home/.users
 else
     echo "Users' volume already initialized. Loading existing users"
     users=$(awk -F ':' '{print $1}' /home/.users)
     for user in $users; do
         adduser -D $user
     done
-    chpasswd < /home/.users
+    chpasswd -e < /home/.users
+    chmod 600 /home/.users
 fi
 
 # generate host keys if not present

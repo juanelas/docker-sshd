@@ -6,6 +6,6 @@ adduser -D $user
 if [ $? -eq 0 ]; then
     echo "${user}:${passwd}" | chpasswd
     if [ $? -eq 0 ]; then
-        echo "${user}:${passwd}" >> /home/.users
+        echo "${user}:$(cryptpw ${passwd})" >> /home/.users
     fi
 fi
