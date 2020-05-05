@@ -28,7 +28,7 @@ $ docker exec sshd deluser.sh pancho
 
 ## docker-compose
 
-An example `docker-compose.yml` listening on port 22/tcp:
+An example `docker-compose.yml` listening on port 8022/tcp:
 
 ```yaml
 version: '3.1'
@@ -38,7 +38,7 @@ services:
     build: .
     container_name: sshd
     ports:
-      - 22:22/tcp
+      - 8022:22/tcp
     volumes:
       - home:/home
       - sshd:/opt/sshd
