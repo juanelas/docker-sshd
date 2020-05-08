@@ -31,7 +31,7 @@ $ docker exec sshd deluser.sh pancho
 An example `docker-compose.yml` listening on port 8022/tcp:
 
 ```yaml
-version: '3.1'
+version: '3.4'
 
 services:
   sshd:
