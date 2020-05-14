@@ -2,21 +2,14 @@
 
 ## Usage
 
-Clone this repo, build and run
-```sh
-$ git clone https://github.com/juanelas/docker-sshd.git
-$ cd docker-sshd
-$ docker build -t sshd .
-$ docker run --name sshd -p 8022:22/tcp sshd
-```
-
-The container use volumes to persist sshd keys and users'data. If you stop the container, you can start it again and everything will continue as it was.
+For the data to persist, you need named volumes or bind mounts for `/opt/sshd`, where the OpenSSH server keys are stored, and `/home`, where the created users and their homes are kept. You should also forward a port in you host to port 22 in your container. An example run command forwarding port 8022/tcp in your host would be:
 
 ```sh
-$ docker start sshd
+$ docker run --name sshd -p 8022:22/tcp -v sshd:/opt/sshd -v home:/home juanelas:sshd
 ```
 
-To create a user with username `pancho` and password `hello1234`:
+When the container is running, assuming you named it `sshd`, you can create a user with username `pancho` and password `hello1234` with:
+
 ```sh
 $ docker exec sshd adduser.sh pancho hello1234
 ```
@@ -35,7 +28,7 @@ version: '3.4'
 
 services:
   sshd:
-    build: .
+    image: "juanelas:sshd"
     container_name: sshd
     ports:
       - 8022:22/tcp
